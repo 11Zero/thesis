@@ -1,0 +1,687 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models.changeKey(fromName='Model-1', toName='road-model')
+mdb.openAcis('F:/documents/thesis/github/part1.sat', scaleFromFile=OFF)
+mdb.models['road-model'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='part1', stitchAfterCombine=False, 
+    type=DEFORMABLE_BODY)
+mdb.openAcis('F:/documents/thesis/github/part2.sat', scaleFromFile=OFF)
+mdb.models['road-model'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='part2', stitchAfterCombine=False, 
+    type=DEFORMABLE_BODY)
+mdb.openAcis('F:/documents/thesis/github/part3.sat', scaleFromFile=OFF)
+mdb.models['road-model'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='part3', stitchAfterCombine=False, 
+    type=DEFORMABLE_BODY)
+mdb.openAcis('F:/documents/thesis/github/part4.sat', scaleFromFile=OFF)
+mdb.models['road-model'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='part4', stitchAfterCombine=False, 
+    type=DEFORMABLE_BODY)
+mdb.openAcis('F:/documents/thesis/github/part5.sat', scaleFromFile=OFF)
+mdb.models['road-model'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='part5', stitchAfterCombine=False, 
+    type=DEFORMABLE_BODY)
+mdb.models['road-model'].Material(name='C45')
+mdb.models['road-model'].materials['C45'].Density(table=((0.0025, ), ))
+mdb.models['road-model'].materials['C45'].Elastic(table=((33657.0, 0.2), ))
+mdb.models['road-model'].HomogeneousSolidSection(material='C45', name=
+    'Section-C45', thickness=None)
+mdb.models['road-model'].parts['part1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=Region(
+    cells=mdb.models['road-model'].parts['part1'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), )), sectionName='Section-C45', thicknessAssignment=
+    FROM_SECTION)
+mdb.models['road-model'].parts['part2'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=Region(
+    cells=mdb.models['road-model'].parts['part2'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), )), sectionName='Section-C45', thicknessAssignment=
+    FROM_SECTION)
+mdb.models['road-model'].parts['part3'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=Region(
+    cells=mdb.models['road-model'].parts['part3'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), )), sectionName='Section-C45', thicknessAssignment=
+    FROM_SECTION)
+mdb.models['road-model'].parts['part4'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=Region(
+    cells=mdb.models['road-model'].parts['part4'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), )), sectionName='Section-C45', thicknessAssignment=
+    FROM_SECTION)
+mdb.models['road-model'].parts['part5'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=Region(
+    cells=mdb.models['road-model'].parts['part5'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), )), sectionName='Section-C45', thicknessAssignment=
+    FROM_SECTION)
+mdb.models['road-model'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['road-model'].rootAssembly.Instance(dependent=ON, name='part1-1', 
+    part=mdb.models['road-model'].parts['part1'])
+mdb.models['road-model'].rootAssembly.Instance(dependent=ON, name='part2-1', 
+    part=mdb.models['road-model'].parts['part2'])
+mdb.models['road-model'].rootAssembly.Instance(dependent=ON, name='part3-1', 
+    part=mdb.models['road-model'].parts['part3'])
+mdb.models['road-model'].rootAssembly.Instance(dependent=ON, name='part4-1', 
+    part=mdb.models['road-model'].parts['part4'])
+mdb.models['road-model'].rootAssembly.Instance(dependent=ON, name='part5-1', 
+    part=mdb.models['road-model'].parts['part5'])
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=125.0, name=
+    '__profile__', sheetSize=5000.0, transform=
+    mdb.models['road-model'].parts['part1'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part1'].faces[15], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part1'].edges[39], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 37734.272706, 325.0)))
+mdb.models['road-model'].parts['part1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].rectangle(point1=(
+    -249.999999682787, -975.0), point2=(250.0, 525.0))
+mdb.models['road-model'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].vertices[9], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[9])
+mdb.models['road-model'].parts['part1'].PartitionCellBySketch(cells=
+    mdb.models['road-model'].parts['part1'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['road-model'].sketches['__profile__'], sketchPlane=
+    mdb.models['road-model'].parts['part1'].faces[15], sketchUpEdge=
+    mdb.models['road-model'].parts['part1'].edges[39])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=138.65, name=
+    '__profile__', sheetSize=5546.17, transform=
+    mdb.models['road-model'].parts['part1'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part1'].faces[26], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part1'].edges[60], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 36534.272706, 325.0)))
+mdb.models['road-model'].parts['part1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].Line(point1=(249.999999682787, 
+    -975.0), point2=(249.999999682787, 525.0))
+mdb.models['road-model'].sketches['__profile__'].VerticalConstraint(
+    addUndoState=False, entity=
+    mdb.models['road-model'].sketches['__profile__'].geometry[10])
+mdb.models['road-model'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].geometry[5], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[10])
+mdb.models['road-model'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].vertices[8], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[8])
+mdb.models['road-model'].sketches['__profile__'].Line(point1=(
+    -250.000000317213, -975.0), point2=(-250.000000317213, 525.0))
+mdb.models['road-model'].sketches['__profile__'].VerticalConstraint(
+    addUndoState=False, entity=
+    mdb.models['road-model'].sketches['__profile__'].geometry[11])
+mdb.models['road-model'].sketches['__profile__'].ParallelConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].geometry[4], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[11])
+mdb.models['road-model'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].vertices[9], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[8])
+mdb.models['road-model'].sketches['__profile__'].Line(point1=(
+    -250.000000317213, 525.0), point2=(249.999999682787, 525.0))
+mdb.models['road-model'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['road-model'].sketches['__profile__'].geometry[12])
+mdb.models['road-model'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].geometry[11], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[12])
+mdb.models['road-model'].sketches['__profile__'].Line(point1=(
+    -250.000000317213, -975.0), point2=(249.999999682787, -975.0))
+mdb.models['road-model'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['road-model'].sketches['__profile__'].geometry[13])
+mdb.models['road-model'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].geometry[4], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[13])
+mdb.models['road-model'].parts['part1'].PartitionCellBySketch(cells=
+    mdb.models['road-model'].parts['part1'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['road-model'].sketches['__profile__'], sketchPlane=
+    mdb.models['road-model'].parts['part1'].faces[26], sketchUpEdge=
+    mdb.models['road-model'].parts['part1'].edges[60])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].rootAssembly.regenerate()
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=138.65, name=
+    '__profile__', sheetSize=5546.17, transform=
+    mdb.models['road-model'].parts['part1'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part1'].faces[29], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part1'].edges[17], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 37134.272706, -200.0)))
+mdb.models['road-model'].parts['part1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].Line(point1=(599.999999920285, 
+    1000.00000031731), point2=(599.999999920285, 723.14063803125))
+mdb.models['road-model'].sketches['__profile__'].VerticalConstraint(
+    addUndoState=False, entity=
+    mdb.models['road-model'].sketches['__profile__'].geometry[14])
+mdb.models['road-model'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[14])
+mdb.models['road-model'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['road-model'].sketches['__profile__'].vertices[12], entity2=
+    mdb.models['road-model'].sketches['__profile__'].geometry[12])
+mdb.models['road-model'].sketches['__profile__'].ObliqueDimension(textPoint=(
+    709.774168999997, 728.92579428125), value=250.0, vertex1=
+    mdb.models['road-model'].sketches['__profile__'].vertices[11], vertex2=
+    mdb.models['road-model'].sketches['__profile__'].vertices[7])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=138.65, name=
+    '__profile__', sheetSize=5546.17, transform=
+    mdb.models['road-model'].parts['part1'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part1'].faces[29], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part1'].edges[17], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 37134.272706, -200.0)))
+mdb.models['road-model'].parts['part1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(600.0, 750.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(600.0, -750.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(-600.0, 750.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(-600.0, -750.0))
+mdb.models['road-model'].sketches['__profile__'].rectangle(point1=(-600.0, 
+    750.0), point2=(600.0, -750.0))
+mdb.models['road-model'].parts['part1'].PartitionCellBySketch(cells=
+    mdb.models['road-model'].parts['part1'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['road-model'].sketches['__profile__'], sketchPlane=
+    mdb.models['road-model'].parts['part1'].faces[29], sketchUpEdge=
+    mdb.models['road-model'].parts['part1'].edges[17])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].rootAssembly.regenerate()
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=753.74, name=
+    '__profile__', sheetSize=30149.62, transform=
+    mdb.models['road-model'].parts['part3'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part3'].faces[3], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part3'].edges[11], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 37734.272706, -7700.0)))
+mdb.models['road-model'].parts['part3'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(7500.0, 250.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(7500.0, -250.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(500.0, -250.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(500.0, 250.0))
+mdb.models['road-model'].sketches['__profile__'].rectangle(point1=(500.0, 
+    250.0), point2=(7500.0, -250.0))
+mdb.models['road-model'].parts['part3'].PartitionCellBySketch(cells=
+    mdb.models['road-model'].parts['part3'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['road-model'].sketches['__profile__'], sketchPlane=
+    mdb.models['road-model'].parts['part3'].faces[3], sketchUpEdge=
+    mdb.models['road-model'].parts['part3'].edges[11])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].ConstrainedSketch(gridSpacing=756.12, name=
+    '__profile__', sheetSize=30244.99, transform=
+    mdb.models['road-model'].parts['part3'].MakeSketchTransform(
+    sketchPlane=mdb.models['road-model'].parts['part3'].faces[2], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['road-model'].parts['part3'].edges[13], 
+    sketchOrientation=RIGHT, origin=(-5280.081556, 36534.272706, -7700.0)))
+mdb.models['road-model'].parts['part3'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['road-model'].sketches['__profile__'])
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(7500.0, 250.0))
+mdb.models['road-model'].sketches['__profile__'].Spot(point=(500.0, -250.0))
+mdb.models['road-model'].sketches['__profile__'].rectangle(point1=(500.0, 
+    -250.0), point2=(7500.0, 250.0))
+mdb.models['road-model'].parts['part3'].PartitionCellBySketch(cells=
+    mdb.models['road-model'].parts['part3'].cells.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['road-model'].sketches['__profile__'], sketchPlane=
+    mdb.models['road-model'].parts['part3'].faces[2], sketchUpEdge=
+    mdb.models['road-model'].parts['part3'].edges[13])
+del mdb.models['road-model'].sketches['__profile__']
+mdb.models['road-model'].rootAssembly.regenerate()
+mdb.models['road-model'].rootAssembly.features['part4-1'].suppress()
+mdb.models['road-model'].rootAssembly.features['part4-1'].resume()
+mdb.models['road-model'].rootAssembly.features['part5-1'].suppress()
+mdb.models['road-model'].rootAssembly.LinearInstancePattern(direction1=(1.0, 
+    0.0, 0.0), direction2=(0.0, 1.0, 0.0), instanceList=('part1-1', 'part2-1', 
+    'part3-1', 'part4-1'), number1=1, number2=7, spacing1=13250.0, spacing2=
+    8000.0)
+del mdb.models['road-model'].rootAssembly.features['part4-1-lin-1-7']
+del mdb.models['road-model'].rootAssembly.features['part2-1-lin-1-7']
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 'part2-1-lin-1-6', 
+    'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 
+    'part3-1-lin-1-6', 'part3-1-lin-1-7', 'part4-1-lin-1-2', 'part4-1-lin-1-3', 
+    'part4-1-lin-1-4', 'part4-1-lin-1-5', 'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1', 'part3-1', 
+    'part4-1'))
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#8 ]', ), ), name='Set-part1-lr')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), ), name='Set-part1-down')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), ), name='Set-part1-innerbeam')
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part5-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 'part1-1-lin-1-7', 
+    'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6', 'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 
+    'part3-1-lin-1-5', 'part3-1-lin-1-6', 'part3-1-lin-1-7', 'part4-1-lin-1-2', 
+    'part4-1-lin-1-3', 'part4-1-lin-1-4', 'part4-1-lin-1-5', 
+    'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part5-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 'part1-1-lin-1-7', 
+    'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6', 'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 
+    'part3-1-lin-1-5', 'part3-1-lin-1-6', 'part3-1-lin-1-7', 'part4-1-lin-1-2', 
+    'part4-1-lin-1-3', 'part4-1-lin-1-4', 'part4-1-lin-1-5', 
+    'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), ), name='Set-part2-lr')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), ), name='Set-part2-top')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), ), name='Set-part2-down')
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part3-1-lin-1-2', 
+    'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 'part3-1-lin-1-6', 
+    'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), ), name='Set-part3-top')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), ), name='Set-part3-lr')
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part3-1-lin-1-2', 
+    'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 'part3-1-lin-1-6', 
+    'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part4-1-lin-1-2', 
+    'part4-1-lin-1-3', 'part4-1-lin-1-4', 'part4-1-lin-1-5', 
+    'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), ), name='Set-part4-top')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), ), name='Set-part4-down')
+mdb.models['road-model'].rootAssembly.Set(faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), ), name='Set-part4-lr')
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part5-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 'part1-1-lin-1-7', 
+    'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6', 'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 
+    'part3-1-lin-1-5', 'part3-1-lin-1-6', 'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.features['part5-1'].suppress()
+mdb.models['road-model'].StaticStep(name='Step-1', previous='Initial')
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part1-innerbeam', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#800 ]', ), ))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 'part2-1-lin-1-6', 
+    'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 
+    'part3-1-lin-1-6', 'part3-1-lin-1-7', 'part4-1-lin-1-2', 'part4-1-lin-1-3', 
+    'part4-1-lin-1-4', 'part4-1-lin-1-5', 'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1', 'part3-1', 
+    'part4-1'))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part1-lr', side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#8 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#28 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part1-down', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part1-1'].faces.getSequenceFromMask(
+    mask=('[#80000000 ]', ), ))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part5-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 
+    'part1-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.features['part2-1'].resume()
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part2-down', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part2-lr', side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1'].faces.getSequenceFromMask(
+    mask=('[#30 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part2-top', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part2-1'].faces.getSequenceFromMask(
+    mask=('[#4 ]', ), ))
+mdb.models['road-model'].rootAssembly.features['part2-1'].suppress()
+mdb.models['road-model'].rootAssembly.features['part3-1'].resume()
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part2-1-lin-1-2', 
+    'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part3-1-lin-1-2', 
+    'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 'part3-1-lin-1-6', 
+    'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part3-lr', side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part3-top', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1'].faces.getSequenceFromMask(
+    mask=('[#80 ]', ), ))
+mdb.models['road-model'].rootAssembly.features['part3-1'].suppress()
+mdb.models['road-model'].rootAssembly.features['part4-1'].resume()
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part3-1-lin-1-2', 
+    'part3-1-lin-1-3', 'part3-1-lin-1-4', 'part3-1-lin-1-5', 'part3-1-lin-1-6', 
+    'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part4-1-lin-1-2', 
+    'part4-1-lin-1-3', 'part4-1-lin-1-4', 'part4-1-lin-1-5', 
+    'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part4-top', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part4-down', 
+    side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1'].faces.getSequenceFromMask(
+    mask=('[#10 ]', ), ))
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part4-lr', side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part4-1'].faces.getSequenceFromMask(
+    mask=('[#a ]', ), ))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part5-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 'part1-1-lin-1-7', 
+    'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6', 'part3-1-lin-1-2', 'part3-1-lin-1-3', 'part3-1-lin-1-4', 
+    'part3-1-lin-1-5', 'part3-1-lin-1-6', 'part3-1-lin-1-7'))
+mdb.models['road-model'].rootAssembly.features['part5-1'].suppress()
+del mdb.models['road-model'].rootAssembly.features['part5-1']
+mdb.models['road-model'].Tie(adjust=ON, constraintEnforcement=
+    SURFACE_TO_SURFACE, master=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part1-lr'], name=
+    'Constraint-part1-part2', positionToleranceMethod=COMPUTED, slave=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part2-lr'], thickness=
+    ON, tieRotations=ON)
+mdb.models['road-model'].Tie(adjust=ON, constraintEnforcement=
+    SURFACE_TO_SURFACE, master=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part1-down'], name=
+    'Constraint-part1-part3', positionToleranceMethod=COMPUTED, slave=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part3-top'], 
+    thickness=ON, tieRotations=ON)
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part1-1', 'part2-1', 
+    'part3-1', 'part4-1', 'part1-1-lin-1-2', 'part1-1-lin-1-3', 
+    'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 'part1-1-lin-1-7', 
+    'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 'part2-1-lin-1-5', 
+    'part2-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.suppressFeatures(('part4-1-lin-1-2', 
+    'part4-1-lin-1-3', 'part4-1-lin-1-4', 'part4-1-lin-1-5', 
+    'part4-1-lin-1-6'))
+mdb.models['road-model'].rootAssembly.features['part3-1'].resume()
+mdb.models['road-model'].rootAssembly.Surface(name='Surf-part3-lr', side1Faces=
+    mdb.models['road-model'].rootAssembly.instances['part3-1'].faces.getSequenceFromMask(
+    mask=('[#20 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-2'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-3'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-4'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-5'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-6'].faces.getSequenceFromMask(
+    mask=('[#21 ]', ), )+\
+    mdb.models['road-model'].rootAssembly.instances['part3-1-lin-1-7'].faces.getSequenceFromMask(
+    mask=('[#1 ]', ), ))
+mdb.models['road-model'].rootAssembly.resumeFeatures(('part4-1-lin-1-6', 
+    'part1-1', 'part2-1', 'part3-1', 'part4-1', 'part1-1-lin-1-2', 
+    'part1-1-lin-1-3', 'part1-1-lin-1-4', 'part1-1-lin-1-5', 'part1-1-lin-1-6', 
+    'part1-1-lin-1-7', 'part2-1-lin-1-2', 'part2-1-lin-1-3', 'part2-1-lin-1-4', 
+    'part2-1-lin-1-5', 'part2-1-lin-1-6', 'part3-1-lin-1-2', 'part3-1-lin-1-3', 
+    'part3-1-lin-1-4', 'part3-1-lin-1-5', 'part3-1-lin-1-6', 'part3-1-lin-1-7', 
+    'part4-1-lin-1-2', 'part4-1-lin-1-3', 'part4-1-lin-1-4', 
+    'part4-1-lin-1-5'))
+mdb.models['road-model'].Tie(adjust=ON, constraintEnforcement=
+    SURFACE_TO_SURFACE, master=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part3-lr'], name=
+    'Constraint-part3-part4', positionToleranceMethod=COMPUTED, slave=
+    mdb.models['road-model'].rootAssembly.surfaces['Surf-part4-lr'], thickness=
+    ON, tieRotations=ON)
+# Save by Administrator on Fri Apr 06 18:44:56 2018
